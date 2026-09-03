@@ -1,0 +1,343 @@
+<title>Ekmans Scoping Sprint</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F4F6F7; --surface:#FFFFFF; --surface-2:#EDF0F2;
+  --ink:#14181C; --ink-2:#3D454E; --muted:#69737E;
+  --line:#D4DADF; --line-strong:#B7C0C7;
+  --accent:#1B44E0; --accent-soft:#E7ECFD;
+  --block:#A62F1B; --block-soft:#FBEAE6;
+  --warn:#7A5A00; --warn-soft:#FBF2DC;
+  --ok:#1F6248; --ok-soft:#E4F1EB;
+  --display:"Archivo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --body:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0F1316; --surface:#171C20; --surface-2:#1E242A;
+    --ink:#E9EDEF; --ink-2:#BCC5CC; --muted:#8B959E;
+    --line:#2A3238; --line-strong:#3A444C;
+    --accent:#7B97FF; --accent-soft:#1B2540;
+    --block:#E58974; --block-soft:#341B15;
+    --warn:#D7B45C; --warn-soft:#2E2611;
+    --ok:#6FC5A2; --ok-soft:#132A22;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0F1316; --surface:#171C20; --surface-2:#1E242A;
+  --ink:#E9EDEF; --ink-2:#BCC5CC; --muted:#8B959E;
+  --line:#2A3238; --line-strong:#3A444C;
+  --accent:#7B97FF; --accent-soft:#1B2540;
+  --block:#E58974; --block-soft:#341B15;
+  --warn:#D7B45C; --warn-soft:#2E2611;
+  --ok:#6FC5A2; --ok-soft:#132A22;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1080px;margin:0 auto;padding:0 28px 96px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{border-bottom:1px solid var(--line-strong);padding:56px 0 30px;margin-bottom:44px}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:0 0 18px}
+h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,5.2vw,54px);line-height:1.02;letter-spacing:-.022em;margin:0 0 20px;text-wrap:balance;max-width:22ch}
+.lede{font-size:17px;color:var(--ink-2);max-width:66ch;margin:0 0 14px}
+.lede:last-child{margin-bottom:0}
+
+section{margin:0 0 68px}
+.sechead{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:12px;margin-bottom:26px}
+h2{font-family:var(--display);font-weight:700;font-size:25px;letter-spacing:-.016em;margin:0}
+.sechead .note{font-size:13.5px;color:var(--muted);margin-left:auto}
+h3{font-family:var(--display);font-weight:600;font-size:16.5px;letter-spacing:-.008em;margin:0 0 4px}
+p{margin:0 0 14px;max-width:68ch}
+
+/* drive */
+.drive{border-left:3px solid var(--accent);background:var(--surface);padding:18px 22px}
+.drive p{margin:0 0 10px}
+.drive p:last-child{margin:0}
+.drive a{font-family:var(--mono);font-size:13.5px;word-break:break-all}
+
+/* next steps */
+.nx{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.nxcol{background:var(--surface);padding:18px 20px}
+.nxcol > h3{font-size:15px;margin-bottom:4px}
+.nxcol .who{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);margin:0 0 12px}
+.nxcol ol{margin:0;padding-left:22px;font-size:14.5px;color:var(--ink-2)}
+.nxcol li{margin:0 0 7px}
+
+/* access */
+.tablewrap{overflow-x:auto;border:1px solid var(--line);background:var(--surface)}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:640px}
+th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:11px 14px;border-bottom:1px solid var(--line-strong);background:var(--surface-2);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+tbody tr:last-child td{border-bottom:none}
+td.what{font-weight:500;min-width:190px}
+td.why{color:var(--ink-2)}
+#access h3{margin:30px 0 10px}
+ul.check{margin:8px 0 10px;padding:0;list-style:none}
+ul.check li{position:relative;padding-left:20px;margin:0 0 4px}
+ul.check li:before{content:"";position:absolute;left:2px;top:.55em;width:7px;height:7px;border:1px solid var(--line-strong)}
+.cnote{display:block;color:var(--muted);font-size:13px;line-height:1.5}
+.ask{font-family:var(--mono);font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-right:8px}
+
+/* question tracks as dropdowns */
+details.drop{border:1px solid var(--line);background:var(--surface);margin:0 0 8px}
+details.drop > summary{cursor:pointer;padding:13px 16px;font-family:var(--display);font-weight:600;font-size:15.5px;display:flex;align-items:center;gap:10px;list-style:none}
+details.drop > summary::-webkit-details-marker{display:none}
+details.drop > summary:before{content:"+";font-family:var(--mono);font-weight:400;color:var(--accent);font-size:15px;width:12px}
+details.drop[open] > summary:before{content:"–"}
+details.drop[open] > summary{border-bottom:1px solid var(--line)}
+summary .count{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em}
+.qlist{list-style:none;margin:0;padding:4px 16px 10px}
+.qlist li{display:grid;grid-template-columns:44px 1fr;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.qlist li:last-child{border-bottom:none}
+.qid{font-family:var(--mono);font-size:11.5px;color:var(--accent);padding-top:3px}
+.q{margin:0;max-width:70ch}
+.q .tail{display:block;color:var(--muted);font-size:13.5px;margin-top:3px}
+
+footer{border-top:1px solid var(--line-strong);padding-top:20px;margin-top:12px;font-size:13px;color:var(--muted)}
+footer p{max-width:none}
+
+@media (max-width:720px){
+  .wrap{padding:0 18px 72px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Scoping &middot; Ekmans Ståldörrar &times; Raincode</p>
+  <h1>Så lägger vi grunden.</h1>
+  <p class="lede">Målet med scopingen är att vi ska ha en komplett bild av hur Ekmans driver verksamheten och tekniken bakom den, att vi får tillgång till dokumentation och system, och att avtalet mellan Raincode och Ekmans är påskrivet.</p>
+  <p class="lede">När det är klart har vi en färdig plan att bygga efter &mdash; och kan ge er den personliga handelsplattform ni faktiskt vill ha.</p>
+</header>
+
+<section id="status">
+  <div class="sechead">
+    <h2>Var vi står</h2>
+    <span class="note">Efter mötet 3 september</span>
+  </div>
+
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>Område</th><th>Läget</th></tr></thead>
+    <tbody>
+      <tr><td class="what">Monitor</td><td class="why">Ingen egen kundansvarig hos Monitor &mdash; ni går via deras support. Monitor ligger i er egen Azure, driftad av Zelly. Desirée lägger upp ett användarkonto till oss i Monitor.<span class="cnote"><strong>Öppet:</strong> Mattias återkommer med kontaktperson på Zelly, så vi kan lösa nätverksåtkomsten direkt med dem. Vi hör av oss till Monitors support om Zelly inte täcker allt.</span></td></tr>
+      <tr><td class="what">Befintlig sajt och domän</td><td class="why">Sajten underhålls i dag av en extern byrå. Desirée äger den och kan ge oss åtkomst, och hon råder även över domänen.<span class="cnote"><strong>Öppet:</strong> överlämning från byrån, så vi kan ta över och flytta allt till den nya plattformen. Vi behöver också veta om det finns skarpa ordrar och kundkonton i dagens sajt, eftersom det i så fall är en migrering.</span></td></tr>
+      <tr><td class="what">Varumärkesmaterial</td><td class="why">Desirée har material och skickar över det. Läggs i Brand-mappen i driven.</td></tr>
+      <tr><td class="what">Sonora</td><td class="why">Samuel är kontaktperson, och vi har ert okej att prata direkt med honom. Beslut tar vi såklart alltid med er.</td></tr>
+      <tr><td class="what">Avtal</td><td class="why">Sonora-avtalet ligger på bordet och är i princip klart att skriva på. Integrationsdelen &mdash; orchestratorn &mdash; ingår i deras upplägg, och det är ett bra läge för er. Hanna hos oss tar vårt eget avtal vidare parallellt.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section id="metod">
+  <div class="sechead">
+    <h2>Så samlar vi in svaren</h2>
+  </div>
+  <p>Frågorna nedan ställer vi inte på ett möte. De läggs som ett formulär i driven, ni svarar i er egen takt, och sedan går vi igenom svaren tillsammans och jag ställer följdfrågorna. Ni behöver inte svara på allt &mdash; det ni svarar på är det som gör plattformen personlig i stället för generell.</p>
+  <p>Frågorna finns i driven i morgon. Vi går igenom dem på plats hos er på onsdag klockan 13.</p>
+</section>
+
+<section id="business">
+  <div class="sechead">
+    <h2>Affärsfrågor</h2>
+    <span class="note">Spår B &middot; Desirée, Kalle och Erik</span>
+  </div>
+
+  <details class="drop">
+    <summary>Utgångsläge och ambition <span class="count">7 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B1</span><p class="q">Vad irriterar er mest med hur reservdelar och service fungerar i dag?</p></li>
+      <li><span class="qid">B2</span><p class="q">Om det här blir riktigt bra &mdash; vad är annorlunda om ett år?</p></li>
+      <li><span class="qid">B3</span><p class="q">Varför nu, och inte i fjol eller nästa år?</p></li>
+      <li><span class="qid">B4</span><p class="q">Har ni försökt med något liknande tidigare? Vad hände då?</p></li>
+      <li><span class="qid">B5</span><p class="q">Hur ser framgång ut om tolv månader, mätt i något ni redan följer?</p></li>
+      <li><span class="qid">B6</span><p class="q">Vad skulle göra att ni ser projektet som misslyckat?</p></li>
+      <li><span class="qid">B7</span><p class="q">Vad har vi inte frågat om, som vi borde ha frågat om?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Så fungerar verksamheten i dag <span class="count">5 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B8</span><p class="q">Beskriv en vanlig tisdag för den som hanterar reservdelsförfrågningar. Hur många kommer in, och hur lång tid tar var och en?</p></li>
+      <li><span class="qid">B9</span><p class="q">Vad frågar kunderna om oftast när de ringer?</p></li>
+      <li><span class="qid">B10</span><p class="q">Vilka är era bästa kunder, och varför köper de av er i stället för av Dörrakuten eller Jonssons?</p></li>
+      <li><span class="qid">B11</span><p class="q">Vad gör en kund billig att hantera, och vad gör en annan dyr?</p></li>
+      <li><span class="qid">B12</span><p class="q">Vad tvingas ni tacka nej till i dag som ni hellre hade sagt ja till?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Vem köper, och vem ser vad <span class="count">5 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B13</span><p class="q">Vilka typer av konton behöver finnas, och ungefär hur många av varje: slutkunder, montörer, återförsäljare, bostadsrättsföreningar, er egen servicepersonal?<span class="tail">Reservdelar och tjänster är vanliga produkter i sajten, så det här handlar om vad olika kunder får se &mdash; inte om separata inloggningar.</span></p></li>
+      <li><span class="qid">B14</span><p class="q">Sonora klarar företagskonton med flera användare. Er regel: ska alla på samma byggföretag se varandras ordrar och historik, eller bara sina egna?</p></li>
+      <li><span class="qid">B15</span><p class="q">Sonora klarar priser per konto. Er regel: ser alla inloggade samma pris, eller följer priset kundavtalet? Och vem ska inte se pris alls?<span class="tail">Priser per avtal betyder att varje prisvisning måste hämtas ur affärssystemet. Det är den dyraste varianten, så det är värt att bestämma medvetet.</span></p></li>
+      <li><span class="qid">B16</span><p class="q">Ska den som inte är inloggad kunna titta på reservdelar &mdash; både för att hittas på Google och för läget "vilken del är det här?"</p></li>
+      <li><span class="qid">B17</span><p class="q">Gäller montering och installation bara Stockholm och Uppsala? Vad händer när någon utanför området vill köpa?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Lager, outlet och begagnat <span class="count">4 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B18</span><p class="q">Hur stor del av det ni säljer är lagerfört, och hur mycket är måttbeställt? Ungefär vilken fördelning?<span class="tail">Konfiguratorn hanterar det måttbeställda. Lagerfört är en annan mekanik, och sajten behöver klara båda utan att kunden blir förvirrad.</span></p></li>
+      <li><span class="qid">B19</span><p class="q">Outlet och begagnade dörrar &mdash; är varje dörr ett unikt exemplar som säljs en gång och sedan är borta? Ligger de som artiklar i Monitor, eller hanteras de på annat sätt?<span class="tail">Unika exemplar beter sig inte som vanliga katalogprodukter. Det behöver byggas medvetet från början, med reservation i kassan och en plan för vad sidan blir när dörren är såld.</span></p></li>
+      <li><span class="qid">B20</span><p class="q">Ska kunden se antal i lager, eller bara om något finns eller inte?</p></li>
+      <li><span class="qid">B21</span><p class="q">Har reservdelarna eget lager i Monitor, eller beställs de in när en kund frågar?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Vad service betyder hos er <span class="count">5 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B22</span><p class="q">Bekräfta vad som säljs som tjänst &mdash; montering, installation, frakt, uppmätning &mdash; prissatt som produkter vid sidan av dörren. Och separat: ska felanmälan och garantiärenden med från start, eller är det steg två?<span class="tail">Det är två olika bygg. Tjänster som produkter är konfiguration. Ett fel- eller garantiärende behöver någonstans att bo, och det är den största enskilda prisfrågan i projektet.</span></p></li>
+      <li><span class="qid">B23</span><p class="q">Finns det lagstadgade återkommande besiktningar på brandklassade dörrar som ni ansvarar för att boka in?<span class="tail">Om ja är det en funktion med riktigt affärsvärde, inte ett formulär.</span></p></li>
+      <li><span class="qid">B24</span><p class="q">Vem tar emot en serviceförfrågan i dag, och vad gör den personen under de tio minuterna efter? Gå igenom det med den som faktiskt gör jobbet.</p></li>
+      <li><span class="qid">B25</span><p class="q">Finns det montörer med scheman att samordna, eller sitter någon och fördelar ärendena manuellt?</p></li>
+      <li><span class="qid">B26</span><p class="q">Ska sajten avgöra om garantin gäller, eller bara registrera ärendet och låta en människa bedöma?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Kommersiella villkor <span class="count">5 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B27</span><p class="q">Kan man köpa av er på nätet i dag, eller går allt via offert?</p></li>
+      <li><span class="qid">B28</span><p class="q">Betalning: faktura mot befintligt kundnummer, kort, eller båda? Behöver en order kreditkontroll eller godkännande innan den tas emot?</p></li>
+      <li><span class="qid">B29</span><p class="q">Frakt och minsta orderbelopp på reservdelar &mdash; ett gångjärn kan inte kosta mer att skicka än det säljs för.</p></li>
+      <li><span class="qid">B30</span><p class="q">När en kund vill ha pris på en specialdel eller en måttbeställd dörr &mdash; är det en offert? I Sonora är offerter låsta och kan bara accepteras eller avslås en gång, utan att gå tillbaka. Reviderar ni offerter i praktiken?<span class="tail">Vi testar det mot tre riktiga offerter ni har skickat. Om revidering är normalt blir varje revidering en ny offert, och det ska framgå tydligt i gränssnittet.</span></p></li>
+      <li><span class="qid">B31</span><p class="q">Vem äger produkt- och reservdelsinnehållet internt efter lansering, med namn och ungefär hur mycket tid per vecka?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Er organisation <span class="count">4 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B32</span><p class="q">Vem hos er är mest positiv till det här, och vem är mest orolig?</p></li>
+      <li><span class="qid">B33</span><p class="q">Vem håller det här levande när vi har lanserat och lämnat?</p></li>
+      <li><span class="qid">B34</span><p class="q">Hur van är personalen vid nya system?<span class="tail">Det påverkar hur vi bygger, så ett rakt svar hjälper oss.</span></p></li>
+      <li><span class="qid">B35</span><p class="q">Är det någons arbetsuppgifter som förändras av det här, och vet de om det?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Beslut och avgränsningar <span class="count">4 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">B36</span><p class="q">Vem godkänner omfattningen, vem är löpande kontakt, och vem kan avgöra en datafråga utan att lyfta den vidare?</p></li>
+      <li><span class="qid">B37</span><p class="q">Finns det ett datum vi måste hålla &mdash; en säsong, en mässa, ett avtal som går ut &mdash; eller får vi föreslå?</p></li>
+      <li><span class="qid">B38</span><p class="q">Vad ligger definitivt utanför, som ni ser det?</p></li>
+      <li><span class="qid">B39</span><p class="q">Är Ekmans fortfarande tänkt som mall för de övriga bolagen i Cynca? Att bygga generellt kostar lite mer nu och mindre sedan, men det behöver vara ett beslut.</p></li>
+    </ul>
+  </details>
+</section>
+
+<section id="technical">
+  <div class="sechead">
+    <h2>Tekniska frågor</h2>
+    <span class="note">Spår T &middot; Raincode, med Zelly, Monitor och Sonora</span>
+  </div>
+  <p>Allt som redan står i dokumentationen har vi plockat bort, liksom allt vi helt enkelt kan testa själva när vi har åtkomst. Kvar är åtta frågor som ingen dokumentation svarar på, med vem som behöver svara.</p>
+
+  <details class="drop">
+    <summary>De åtta öppna frågorna <span class="count">8 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">T1</span><p class="q">Är Eftermarknad påslaget i er G5, och finns ett fullt flöde för serviceorder? Monitors egen hjälp beskriver Eftermarknad som merförsäljning kopplad till serienummer, medan det bredare serviceorderflödet bara syns i dokumentationen för Monitor 8, inte G5.<span class="tail"><span class="ask">Monitor svarar, skriftligt</span>I deras API-dokumentation finns ingen Service- eller Eftermarknadsdel alls, medan alla andra moduler har flera sidor. Svaret avgör om ett serviceärende har någon plats i affärssystemet eller om vi behöver bygga den.</span></p></li>
+      <li><span class="qid">T2</span><p class="q">Var serviceärendet ska bo. Om svaret på T1 är nej bygger vi det hos oss, med Monitor som läskälla för kunder och serienummer.<span class="tail"><span class="ask">Vårt beslut</span>Ingen hos Ekmans behöver svara på den här, men det är den största enskilda prisfrågan i projektet, så den står med här och inte begravd längre ner.</span></p></li>
+      <li><span class="qid">T3</span><p class="q">Vem hos Ekmans vet vilken reservdel som passar vilken dörr, och var står det? En ritning, ett fält i Monitor, ett kalkylblad, eller i någons huvud.<span class="tail"><span class="ask">Erik</span>En genomgång av datan visar vad som är registrerat. Den visar inte vad folk vet men aldrig skrivit ner, och på ett långlivat sortiment är det oftast den större delen.</span></p></li>
+      <li><span class="qid">T4</span><p class="q">Hur många API-användare kan vi ha, och vad kostar en till? Monitor tillåter en aktiv session per användare, per bolag, så antalet användare sätter taket för hur mycket trafik vi kan betjäna samtidigt.<span class="tail"><span class="ask">Zelly eller Monitor</span>Vi behöver veta vad som gäller i dag och vad nästa användare kostar.</span></p></li>
+      <li><span class="qid">T5</span><p class="q">Har Zelly åtkomst till själva Monitor-uppsättningen, eller bara till infrastrukturen runt om?<span class="tail"><span class="ask">Mattias och Zelly</span>Frågan kom upp på mötet. Svaret avgör om vi behöver gå till Monitors support parallellt.</span></p></li>
+      <li><span class="qid">T6</span><p class="q">Skriver något annat redan till den här Monitor-installationen?<span class="tail"><span class="ask">Ekmans eller Zelly</span>Två system som skriver utan samordning förstör data tyst.</span></p></li>
+      <li><span class="qid">T7</span><p class="q">Vilka faktiska anropsgränser gäller? Ingen av plattformarna publicerar några.<span class="tail"><span class="ask">Monitor och Sonora</span>En odokumenterad gräns bromsar ändå, och man möter den i drift. Siffran styr hur ofta vi kan hämta data.</span></p></li>
+      <li><span class="qid">T8</span><p class="q">Finns det skarpa ordrar och kundkonton i dagens sajt, och ska den datan följa med över?<span class="tail"><span class="ask">Ekmans och byrån</span>Om det finns kundkonton och orderhistorik är det en migrering som ingen har prissatt än.</span></p></li>
+    </ul>
+  </details>
+</section>
+
+<section id="design">
+  <div class="sechead">
+    <h2>Designfrågor &mdash; den publika sajten</h2>
+    <span class="note">Spår D &middot; Raincode design, med Ekmans och Lajjo</span>
+  </div>
+  <p>Den publika sajten är det en föreskrivande arkitekt hittar på Google långt innan någon loggar in. Den har ingen koppling till affärssystemet alls, vilket gör den till den tekniskt enklaste och varumärkesmässigt viktigaste delen &mdash; värd att designa ordentligt och inte behandla som ett skal runt handeln.</p>
+
+  <details class="drop">
+    <summary>Målgrupp och uppgift <span class="count">5 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">D1</span><p class="q">Sortimentet går från tamburdörrar till EI60 branddörrar till förrådsdörrar. Är det samma kund, eller tre olika? Vilken vill ni ha mer av?<span class="tail">Det avgör vad startsidan leder med, och den kan bara leda med en sak.</span></p></li>
+      <li><span class="qid">D2</span><p class="q">Vem är sajten egentligen för &mdash; arkitekter och föreskrivande led, fastighetsförvaltare och bostadsrättsföreningar, inköp, eller montörer? De vill väldigt olika saker av samma sida.</p></li>
+      <li><span class="qid">D3</span><p class="q">Vad är den viktigaste handlingen: begära offert, hitta en produkt, hitta en reservdel, eller boka service? Rangordna dem.</p></li>
+      <li><span class="qid">D4</span><p class="q">Hur når en arkitekt eller föreskrivare er i dag, och vad frågar de om först? Fråga den som svarar i telefon.</p></li>
+      <li><span class="qid">D5</span><p class="q">Dörrakuten, Jonssons och Ambassadoor ligger på samma sökord. Vem tappar ni mot, och vad gör deras sajt bättre?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Innehåll och struktur <span class="count">6 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">D6</span><p class="q">Hur är sortimentet indelat i kundens huvud &mdash; efter dörrtyp, brandklass, miljö eller användning? Dagens sajt delar upp efter produkttyp. Navigationen ska följa hur folk faktiskt letar, inte artikelstrukturen i Monitor.</p></li>
+      <li><span class="qid">D7</span><p class="q">Vilken teknisk dokumentation måste gå att ladda ner: prestandadeklaration, CE-märkning, brandklassning, CAD- eller BIM-filer, monteringsanvisningar, manualer och sprängskisser? För föreskrivande led är det ofta hela anledningen att besöka sajten.<span class="tail">Andra halvan av frågan, och den som kostar: finns var och en av dem som fil i dag, och var? Papper i en pärm är ett dataproblem, inte ett lagringsbeslut.</span></p></li>
+      <li><span class="qid">D8</span><p class="q">Finns referensprojekt som får nämnas med namn, med bilder och tillstånd?</p></li>
+      <li><span class="qid">D9</span><p class="q">Språk: bara svenska, eller svenska och engelska? Bestäm nu &mdash; det påverkar innehållsstrukturen.</p></li>
+      <li><span class="qid">D10</span><p class="q">Hur mycket trafik har dagens sajt, och vilka sidor och sökord drar den? Dagens sidor rankar på riktiga lokala sökord, och inget som rankar ska tappas i flytten.</p></li>
+      <li><span class="qid">D11</span><p class="q">Vem skriver texterna &mdash; Ekmans, vi, eller en innehållsspecialist som tillägg?</p></li>
+    </ul>
+  </details>
+
+  <details class="drop">
+    <summary>Varumärke och uttryck <span class="count">7 frågor</span></summary>
+    <ul class="qlist">
+      <li><span class="qid">D12</span><p class="q">Finns en grafisk profil, eller sätter vi en? Logotyp i vektor, färger, typografi och licenser.</p></li>
+      <li><span class="qid">D13</span><p class="q">Vilka bilder finns, och håller de? Ståldörrar blir sällan bra i lysrörsljus, och outlet och begagnat behöver fotas exemplar för exemplar &mdash; räkna med en fotografering om svaret är nej.</p></li>
+      <li><span class="qid">D14</span><p class="q">Hur ska sajten kännas: teknisk och stram, eller varmare och mer kommersiell? Ge oss tre sajter ni gillar och en ni ogillar.</p></li>
+      <li><span class="qid">D15</span><p class="q">Hur ska inloggningen visas &mdash; en diskret länk, eller en tydlig ingång på startsidan för montörer som kommer tillbaka?</p></li>
+      <li><span class="qid">D16</span><p class="q">Var ska offertformuläret ligga, och hur kort får det vara för att ni ska acceptera det? Varje fält kostar i konvertering.</p></li>
+      <li><span class="qid">D17</span><p class="q">Vilken tillgänglighetsnivå ska vi hålla, och finns offentliga kunder som gör det till ett krav i upphandling snarare än ett önskemål?</p></li>
+      <li><span class="qid">D18</span><p class="q">Vem redigerar sajten efter lansering, och hur tekniskt bekväm är den personen? Det avgör hur mycket vi låser strukturen.</p></li>
+    </ul>
+  </details>
+</section>
+
+<section id="drive">
+  <div class="sechead">
+    <h2>En gemensam arbetsyta</h2>
+  </div>
+  <div class="drive">
+    <p>Vi kör projektet i en delad Google Drive, så att allt hålls dokumenterat, strukturerat och samlat på ett ställe &mdash; affär, teknik, varumärke, mötesanteckningar, underlag och leveranser. Allt ni skickar oss läggs där, och beslutsloggen ligger också där så att vi båda ser vad som bestämts och när. Mötestranskripten lägger vi i Meetings-mappen.</p>
+    <p><a href="https://drive.google.com/drive/folders/1Nog0FSwjMkkxsJ9L77Ergov3fVLB0n-H">drive.google.com/drive/folders/1Nog0FSwjMkkxsJ9L77Ergov3fVLB0n-H</a></p>
+  </div>
+</section>
+
+<section id="next">
+  <div class="sechead">
+    <h2>Nästa steg</h2>
+  </div>
+  <div class="nx">
+    <div class="nxcol">
+      <p class="who">Ekmans</p>
+      <ol>
+        <li>Mattias skickar kontaktperson på Zelly.</li>
+        <li>Desirée lägger upp ett Monitor-konto till oss.</li>
+        <li>Desirée skickar mejladresser till Kalle och Erik, så de kommer med i formuläret.</li>
+        <li>Svara på frågorna i driven före onsdag.</li>
+        <li>Skriv på Sonora-avtalet.</li>
+        <li>Ordna överlämningen av sajten från byrån, och ge oss åtkomst till domänen.</li>
+      </ol>
+    </div>
+    <div class="nxcol">
+      <p class="who">Tidplan</p>
+      <ol>
+        <li>Frågorna ligger i driven i morgon.</li>
+        <li>Genomgång på plats hos er onsdag klockan 13. Mattias är med.</li>
+        <li>Utvecklingsstart så snart åtkomsterna är på plats &mdash; vi sätter inget datum innan dess.</li>
+        <li>Utvecklingen tar 9&ndash;12 veckor. Vid slutet av scopingen vet vi vilken siffra det blir.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+</div>
